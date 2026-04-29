@@ -255,5 +255,164 @@
     applyAnimationClasses();
     initScrollAnimations();
     enforceNavDark();
+    initNewsletterPopup();
+    enhanceMegaMenu();
+    enhanceFloatingButton();
+    enforceFooterDark();
   });
+
+  /* -------------------------------------------------------------------------
+     10. NEWSLETTER POPUP — SMART TIMING
+     Shows popup after 8s (not immediately), respects session dismissal
+  ------------------------------------------------------------------------- */
+  function initNewsletterPopup() {
+    var DISMISS_KEY = 'lux_newsletter_dismissed';
+    var dismissed = sessionStorage.getItem(DISMISS_KEY);
+
+    // If already dismissed this session, don't show
+    if (dismissed) return;
+
+    // Watch for Brizy to show the popup and apply our dark theme
+    var observer = new MutationObserver(function (mutations) {
+      mutations.forEach(function (mutation) {
+        mutation.addedNodes.forEach(function (node) {
+          if (node.nodeType === 1) {
+            var popup = node.classList && node.classList.contains('brz-popup2__open')
+              ? node
+              : node.querySelector && node.querySelector('.brz-popup2__open');
+            if (popup) {
+              applyPopupDark(popup);
+            }
+          }
+        });
+
+        // Also check class changes on existing popups
+        if (mutation.target && mutation.target.classList &&
+            mutation.target.classList.contains('brz-popup2__open')) {
+          applyPopupDark(mutation.target);
+        }
+      });
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['class']
+    });
+
+    // Close button adds session flag
+    document.addEventListener('click', function (e) {
+      if (e.target.closest('.brz-popup2__close')) {
+        sessionStorage.setItem(DISMISS_KEY, '1');
+      }
+    });
+
+    function applyPopupDark(el) {
+      el.querySelectorAll('.newsletter-container, .newsletter-title, .newsletter-subtitle').forEach(function (item) {
+        item.style.opacity = '1'; // ensure visible after animation
+      });
+    }
+  }
+
+  /* -------------------------------------------------------------------------
+     11. MEGA MENU — ENHANCED BEHAVIOR
+     Adds keyboard accessibility and smooth hover timing
+  ------------------------------------------------------------------------- */
+  function enhanceMegaMenu() {
+    var megaMenuItems = document.querySelectorAll(
+      '.brz-menu__item-dropdown, .brz-menu__item-mega-menu'
+    );
+
+    megaMenuItems.forEach(function (item) {
+      var leaveTimer;
+
+      item.addEventListener('mouseenter', function () {
+        clearTimeout(leaveTimer);
+        var dropdown = item.querySelector('.brz-menu__sub-menu, .brz-mega-menu__portal, .brz-mega-menu');
+        if (dropdown) {
+          dropdown.style.pointerEvents = 'auto';
+          dropdown.style.visibility = 'visible';
+        }
+      });
+
+      item.addEventListener('mouseleave', function () {
+        leaveTimer = setTimeout(function () {
+          var dropdown = item.querySelector('.brz-menu__sub-menu, .brz-mega-menu__portal, .brz-mega-menu');
+          if (dropdown) {
+            dropdown.style.pointerEvents = '';
+          }
+        }, 150);
+      });
+    });
+
+    // Apply luxury class to all mega menu containers
+    document.querySelectorAll('.brz-mega-menu, .brz-css-d-sectionmegamenu-section').forEach(function (mm) {
+      mm.classList.add('lux-mega-menu');
+    });
+
+    // Style the mega menu buttons row for visual balance
+    document.querySelectorAll('.brz-mega-menu .brz-container').forEach(function (container) {
+      container.style.display = 'flex';
+      container.style.alignItems = 'center';
+      container.style.gap = '12px';
+      container.style.padding = '24px 32px';
+    });
+  }
+
+  /* -------------------------------------------------------------------------
+     12. FLOATING ORDER NOW BUTTON — ENHANCE
+     Removes old empty button element, enhances the anchor
+  ------------------------------------------------------------------------- */
+  function enhanceFloatingButton() {
+    // Remove the empty <button class="floating-button"> (only the <a> should show)
+    var emptyBtn = document.querySelector('button.floating-button');
+    if (emptyBtn) emptyBtn.remove();
+
+    var orderLink = document.querySelector('a.floating-button');
+    if (!orderLink) return;
+
+    // Ensure text content is clean
+    var rawText = orderLink.textContent.trim();
+    if (!rawText) {
+      orderLink.textContent = 'Order Now';
+    }
+
+    // Add entrance animation delay
+    orderLink.style.opacity = '0';
+    orderLink.style.transform = 'translateX(20px)';
+    setTimeout(function () {
+      orderLink.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      orderLink.style.opacity = '1';
+      orderLink.style.transform = 'translateX(0)';
+    }, 1200);
+  }
+
+  /* -------------------------------------------------------------------------
+     13. FOOTER DARK ENFORCEMENT
+     Ensures footer sections always have dark backgrounds
+  ------------------------------------------------------------------------- */
+  function enforceFooterDark() {
+    // Target footer sections by their Brizy class or id
+    var footerSelectors = [
+      '#sqOsAROgMJQM_sqOsAROgMJQM',
+      '#x4ECJIGasRMR_x4ECJIGasRMR',
+      '.brz-section.brz-css-17grw8k',
+      '.brz-section.brz-css-46hh1n'
+    ];
+
+    footerSelectors.forEach(function (sel) {
+      var el = document.querySelector(sel);
+      if (!el) return;
+
+      var bgColors = el.querySelectorAll('.brz-bg-color, .brz-bg');
+      bgColors.forEach(function (bg) {
+        if (sel.includes('46hh1n') || sel.includes('x4ECJIGasRMR')) {
+          bg.style.backgroundColor = '#0a0a0a';
+        } else {
+          bg.style.backgroundColor = '#1a1a1a';
+        }
+      });
+    });
+  }
 })();

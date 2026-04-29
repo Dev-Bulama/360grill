@@ -820,3 +820,756 @@ nav.brz-mm-menu.brz-css-d-menu-mmenu {
     color: black !important;
   }
 }
+
+/* ==========================================================================
+   PART II — TARGETED ENHANCEMENTS
+   Dropdown, Order Now, Newsletter Popup, Footer, Menu Mobile
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   27. MEGA MENU DROPDOWN — LUXURY REDESIGN
+   -------------------------------------------------------------------------- */
+
+/* Mega menu portal wrapper */
+.brz .brz-mega-menu__portal,
+.brz .brz-mega-menu__mmenu {
+  z-index: 9999 !important;
+}
+
+/* The mega menu panel itself */
+.brz .brz-mega-menu,
+.brz-mega-menu {
+  background-color: var(--lux-black) !important;
+  border-top: 2px solid var(--lux-red) !important;
+  border-bottom: 1px solid rgba(196,30,42,0.25) !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 4px 16px rgba(0,0,0,0.4) !important;
+  animation: lux-dropdown-in 0.22s cubic-bezier(0.16,1,0.3,1) both !important;
+}
+
+@keyframes lux-dropdown-in {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Inner container padding */
+.brz .brz-css-d-sectionmegamenu-bg,
+.brz .brz-mega-menu .brz-container {
+  padding: 28px 32px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+}
+
+/* Buttons inside mega menus — premium pill style */
+.brz .brz-mega-menu .brz-btn,
+.brz-mega-menu .brz-btn {
+  font-family: var(--font-body) !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+  background-color: transparent !important;
+  color: var(--lux-white) !important;
+  border: 1px solid rgba(255,255,255,0.25) !important;
+  border-radius: 2px !important;
+  padding: 12px 28px !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease !important;
+  white-space: nowrap;
+  position: relative;
+}
+
+.brz .brz-mega-menu .brz-btn:hover,
+.brz-mega-menu .brz-btn:hover {
+  background-color: var(--lux-red) !important;
+  border-color: var(--lux-red) !important;
+  color: var(--lux-white) !important;
+  box-shadow: 0 4px 16px rgba(196,30,42,0.35) !important;
+}
+
+/* "Book A Table" — highlight it as primary CTA */
+.brz-mega-menu .brz-btn:first-child,
+.brz-mega-menu .brz-wrapper-clone:first-child .brz-btn {
+  background-color: var(--lux-red) !important;
+  border-color: var(--lux-red) !important;
+  color: var(--lux-white) !important;
+}
+
+.brz-mega-menu .brz-btn:first-child:hover,
+.brz-mega-menu .brz-wrapper-clone:first-child .brz-btn:hover {
+  background-color: var(--lux-red-dark) !important;
+  border-color: var(--lux-red-dark) !important;
+}
+
+/* Decorative divider inside mega menu */
+.brz-mega-menu .brz-css-d-row-row::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 60%;
+  background: rgba(255,255,255,0.1);
+}
+
+/* Sub-menu dropdown (regular, non-mega) */
+.brz .brz-css-d-menu-menu > .brz-menu__ul > .brz-menu__item-dropdown .brz-menu__sub-menu {
+  animation: lux-dropdown-in 0.2s cubic-bezier(0.16,1,0.3,1) both !important;
+  min-width: 220px !important;
+  padding: 8px 0 !important;
+  border-radius: 0 0 6px 6px !important;
+}
+
+.brz .brz-css-d-menu-menu > .brz-menu__ul > .brz-menu__item-dropdown .brz-menu__sub-menu .brz-menu__item > .brz-a {
+  font-family: var(--font-body) !important;
+  font-size: 0.78rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.05em !important;
+  text-transform: none !important;
+  padding: 10px 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  color: rgba(255,255,255,0.8) !important;
+  transition: color 0.2s ease, padding-left 0.2s ease !important;
+}
+
+.brz .brz-css-d-menu-menu > .brz-menu__ul > .brz-menu__item-dropdown .brz-menu__sub-menu .brz-menu__item > .brz-a:hover {
+  color: var(--lux-red) !important;
+  padding-left: 26px !important;
+  background: rgba(196,30,42,0.07) !important;
+}
+
+/* Nav item with dropdown — chevron indicator */
+.brz .brz-css-d-menu-menu > .brz-menu__ul > .brz-menu__item-dropdown > .brz-a::before {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+  border-top: 4px solid currentColor;
+  margin-left: 5px;
+  vertical-align: middle;
+  opacity: 0.7;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.brz .brz-css-d-menu-menu > .brz-menu__ul > .brz-menu__item-dropdown:hover > .brz-a::before,
+.brz .brz-css-d-menu-menu > .brz-menu__ul > .brz-menu__item-dropdown.brz-menu__item--opened > .brz-a::before {
+  transform: rotate(180deg);
+  opacity: 1;
+  color: var(--lux-red);
+}
+
+/* --------------------------------------------------------------------------
+   28. ORDER NOW FLOATING BUTTON — PREMIUM REDESIGN
+   -------------------------------------------------------------------------- */
+
+.floating-button {
+  position: fixed !important;
+  bottom: 32px !important;
+  right: 28px !important;
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  display: none !important; /* hide the empty button element */
+}
+
+/* Target the actual anchor link */
+a.floating-button {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  background-color: var(--lux-black) !important;
+  color: var(--lux-white) !important;
+  border: 1px solid var(--lux-red) !important;
+  border-radius: 2px !important;
+  padding: 14px 24px !important;
+  font-family: var(--font-body) !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.5), 0 0 0 1px rgba(196,30,42,0.3) !important;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease !important;
+  z-index: 9000 !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  animation: lux-float-pulse 3s ease-in-out infinite !important;
+}
+
+a.floating-button::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--lux-red);
+  border-radius: 50%;
+  animation: lux-dot-blink 1.4s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+a.floating-button:hover {
+  background-color: var(--lux-red) !important;
+  border-color: var(--lux-red) !important;
+  box-shadow: 0 8px 32px rgba(196,30,42,0.45), 0 2px 8px rgba(0,0,0,0.5) !important;
+  transform: translateY(-2px) !important;
+  animation: none !important;
+}
+
+a.floating-button:hover::before {
+  background: var(--lux-white);
+  animation: none;
+}
+
+@keyframes lux-float-pulse {
+  0%, 100% { box-shadow: 0 4px 24px rgba(0,0,0,0.5), 0 0 0 1px rgba(196,30,42,0.3); }
+  50%       { box-shadow: 0 4px 32px rgba(0,0,0,0.6), 0 0 0 3px rgba(196,30,42,0.5); }
+}
+
+@keyframes lux-dot-blink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.7); }
+}
+
+@media (max-width: 767px) {
+  a.floating-button {
+    bottom: 20px !important;
+    right: 16px !important;
+    padding: 12px 18px !important;
+    font-size: 0.68rem !important;
+    letter-spacing: 0.1em !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   29. NEWSLETTER POPUP — LUXURY DARK REDESIGN
+   -------------------------------------------------------------------------- */
+
+/* Popup overlay */
+.brz .brz-popup2.brz-popup2__auto,
+.brz .brz-popup2.brz-popup2__auto .brz-popup2__overlay {
+  background: rgba(0,0,0,0.85) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
+
+/* Popup container */
+.brz .brz-popup2__inner.brz-css-d-sectionpopup2-bg {
+  border-radius: 0 !important;
+  animation: lux-popup-in 0.4s cubic-bezier(0.16,1,0.3,1) both !important;
+  overflow: visible !important;
+}
+
+@keyframes lux-popup-in {
+  from { opacity: 0; transform: scale(0.94) translateY(16px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Close button */
+.brz .brz-popup2__close {
+  top: -48px !important;
+  right: 0 !important;
+  background: var(--lux-red) !important;
+  width: 36px !important;
+  height: 36px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 50% !important;
+  transition: background-color 0.2s ease, transform 0.25s ease !important;
+}
+
+.brz .brz-popup2__close:hover {
+  background: var(--lux-red-dark) !important;
+  transform: rotate(90deg) scale(1.1) !important;
+}
+
+/* Newsletter form inside popup — override inline styles */
+.newsletter-container {
+  max-width: 420px !important;
+  margin: 0 auto !important;
+  padding: 40px 36px !important;
+  background: var(--lux-charcoal) !important;
+  border-radius: 0 !important;
+  border: 1px solid rgba(196,30,42,0.3) !important;
+  border-top: 3px solid var(--lux-red) !important;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.7) !important;
+  font-family: var(--font-body) !important;
+  position: relative;
+}
+
+/* Red corner accent */
+.newsletter-container::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--lux-red);
+}
+
+.newsletter-title {
+  color: var(--lux-white) !important;
+  font-family: var(--font-display) !important;
+  font-size: 1.6rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 6px !important;
+  letter-spacing: -0.01em !important;
+  text-align: center !important;
+  line-height: 1.3 !important;
+}
+
+.newsletter-subtitle {
+  color: rgba(255,255,255,0.55) !important;
+  font-family: var(--font-body) !important;
+  font-size: 0.82rem !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.02em !important;
+  margin-bottom: 28px !important;
+  text-align: center !important;
+}
+
+/* Email input */
+#newsletter-email {
+  width: 100% !important;
+  padding: 14px 18px !important;
+  background: rgba(255,255,255,0.06) !important;
+  border: 1px solid rgba(255,255,255,0.15) !important;
+  border-radius: 2px !important;
+  color: var(--lux-white) !important;
+  font-family: var(--font-body) !important;
+  font-size: 0.88rem !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.02em !important;
+  outline: none !important;
+  transition: border-color 0.2s ease, background-color 0.2s ease !important;
+}
+
+#newsletter-email::placeholder {
+  color: rgba(255,255,255,0.35) !important;
+}
+
+#newsletter-email:focus {
+  border-color: var(--lux-red) !important;
+  background: rgba(255,255,255,0.09) !important;
+}
+
+/* Subscribe button */
+#subscribe-btn {
+  width: 100% !important;
+  padding: 15px 20px !important;
+  background-color: var(--lux-red) !important;
+  color: var(--lux-white) !important;
+  border: none !important;
+  border-radius: 2px !important;
+  font-family: var(--font-body) !important;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+#subscribe-btn:hover:not(:disabled) {
+  background-color: var(--lux-red-dark) !important;
+  box-shadow: 0 4px 16px rgba(196,30,42,0.4) !important;
+}
+
+#subscribe-btn:disabled {
+  background-color: rgba(255,255,255,0.15) !important;
+  cursor: not-allowed !important;
+}
+
+/* Form message states */
+#form-message {
+  font-family: var(--font-body) !important;
+  font-size: 0.8rem !important;
+  border-radius: 2px !important;
+  padding: 12px 16px !important;
+}
+
+.message-success {
+  background-color: rgba(21,128,61,0.2) !important;
+  color: #86efac !important;
+  border: 1px solid rgba(21,128,61,0.4) !important;
+}
+
+.message-error {
+  background-color: rgba(196,30,42,0.15) !important;
+  color: #fca5a5 !important;
+  border: 1px solid rgba(196,30,42,0.35) !important;
+}
+
+/* Privacy text in popup */
+.newsletter-container .privacy-section,
+.newsletter-container p:last-child {
+  color: rgba(255,255,255,0.35) !important;
+  font-size: 0.72rem !important;
+}
+
+/* --------------------------------------------------------------------------
+   30. FOOTER — DEEP LUXURY REDESIGN
+   -------------------------------------------------------------------------- */
+
+/* Contact info bar — section sqOsAROgMJQM */
+#sqOsAROgMJQM_sqOsAROgMJQM,
+.brz-section.brz-css-17grw8k {
+  background-color: transparent !important;
+  position: relative;
+}
+
+#sqOsAROgMJQM_sqOsAROgMJQM .brz-css-d-sectionitem-bg,
+.brz-section.brz-css-17grw8k .brz-css-d-sectionitem-bg {
+  background-color: var(--lux-charcoal) !important;
+  border-top: 1px solid rgba(255,255,255,0.07) !important;
+  padding: 48px 0 !important;
+}
+
+/* Copyright bar — section x4ECJIGasRMR */
+#x4ECJIGasRMR_x4ECJIGasRMR,
+.brz-section.brz-css-46hh1n {
+  background-color: transparent !important;
+}
+
+#x4ECJIGasRMR_x4ECJIGasRMR .brz-css-d-sectionitem-bg,
+.brz-section.brz-css-46hh1n .brz-css-d-sectionitem-bg {
+  background-color: var(--lux-black) !important;
+  padding: 20px 0 !important;
+  border-top: 1px solid rgba(196,30,42,0.2) !important;
+}
+
+/* Force dark bg on both footer section bg layers */
+#sqOsAROgMJQM_sqOsAROgMJQM .brz-bg-color,
+.brz-section.brz-css-17grw8k .brz-bg-color {
+  background-color: var(--lux-charcoal) !important;
+}
+
+#x4ECJIGasRMR_x4ECJIGasRMR .brz-bg-color,
+.brz-section.brz-css-46hh1n .brz-bg-color {
+  background-color: var(--lux-black) !important;
+}
+
+/* Footer text — contact info section */
+#sqOsAROgMJQM_sqOsAROgMJQM .brz-rich-text p,
+#sqOsAROgMJQM_sqOsAROgMJQM .brz-rich-text span,
+.brz-section.brz-css-17grw8k .brz-rich-text p,
+.brz-section.brz-css-17grw8k .brz-rich-text span {
+  color: rgba(255,255,255,0.72) !important;
+  font-family: var(--font-body) !important;
+  font-size: 0.85rem !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.03em !important;
+}
+
+/* Footer links */
+#sqOsAROgMJQM_sqOsAROgMJQM .brz-rich-text a,
+.brz-section.brz-css-17grw8k .brz-rich-text a {
+  color: rgba(255,255,255,0.72) !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease !important;
+  font-weight: 400 !important;
+}
+
+#sqOsAROgMJQM_sqOsAROgMJQM .brz-rich-text a:hover,
+.brz-section.brz-css-17grw8k .brz-rich-text a:hover {
+  color: var(--lux-red) !important;
+}
+
+/* "Subscribe To Newsletter" link — make it a button-like CTA */
+.brz-section.brz-css-17grw8k .brz-rich-text a[href*="social"],
+#sqOsAROgMJQM_sqOsAROgMJQM .brz-rich-text a[href*="social"] {
+  display: inline-block !important;
+  color: var(--lux-white) !important;
+  background: var(--lux-red) !important;
+  padding: 8px 20px !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  border: 1px solid var(--lux-red) !important;
+  transition: background-color 0.2s ease, color 0.2s ease !important;
+}
+
+.brz-section.brz-css-17grw8k .brz-rich-text a[href*="social"]:hover,
+#sqOsAROgMJQM_sqOsAROgMJQM .brz-rich-text a[href*="social"]:hover {
+  background: transparent !important;
+  color: var(--lux-red) !important;
+}
+
+/* Footer social icons */
+#sqOsAROgMJQM_sqOsAROgMJQM .brz-icon-svg,
+.brz-section.brz-css-17grw8k .brz-icon-svg {
+  transition: color 0.2s ease, transform 0.2s ease !important;
+}
+
+#sqOsAROgMJQM_sqOsAROgMJQM .brz-icon-svg-custom,
+.brz-section.brz-css-17grw8k .brz-icon-svg-custom {
+  background-color: rgba(255,255,255,0.65) !important;
+  transition: background-color 0.2s ease, transform 0.2s ease !important;
+}
+
+#sqOsAROgMJQM_sqOsAROgMJQM .brz-icon__container a:hover .brz-icon-svg-custom,
+.brz-section.brz-css-17grw8k .brz-icon__container a:hover .brz-icon-svg-custom {
+  background-color: var(--lux-red) !important;
+  transform: scale(1.15) !important;
+}
+
+/* Copyright text */
+#x4ECJIGasRMR_x4ECJIGasRMR .brz-rich-text p,
+#x4ECJIGasRMR_x4ECJIGasRMR .brz-rich-text span,
+.brz-section.brz-css-46hh1n .brz-rich-text p,
+.brz-section.brz-css-46hh1n .brz-rich-text span {
+  color: rgba(255,255,255,0.35) !important;
+  font-family: var(--font-body) !important;
+  font-size: 0.75rem !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.04em !important;
+}
+
+/* Designed by link */
+#x4ECJIGasRMR_x4ECJIGasRMR .brz-rich-text span[style*="background"],
+.brz-section.brz-css-46hh1n .brz-rich-text span[style*="background"] {
+  background-color: transparent !important;
+  color: rgba(255,255,255,0.35) !important;
+}
+
+/* Contact section icon row spacing */
+#sqOsAROgMJQM_sqOsAROgMJQM .brz-columns,
+.brz-section.brz-css-17grw8k .brz-columns {
+  display: flex;
+  align-items: center;
+}
+
+/* Vertical separator between footer columns */
+#sqOsAROgMJQM_sqOsAROgMJQM .brz-row > .brz-columns:not(:last-child),
+.brz-section.brz-css-17grw8k .brz-row > .brz-columns:not(:last-child) {
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+
+@media (max-width: 767px) {
+  #sqOsAROgMJQM_sqOsAROgMJQM .brz-row > .brz-columns:not(:last-child),
+  .brz-section.brz-css-17grw8k .brz-row > .brz-columns:not(:last-child) {
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding-bottom: 20px;
+    margin-bottom: 4px;
+  }
+
+  #sqOsAROgMJQM_sqOsAROgMJQM .brz-css-d-sectionitem-bg,
+  .brz-section.brz-css-17grw8k .brz-css-d-sectionitem-bg {
+    padding: 36px 16px !important;
+  }
+
+  #x4ECJIGasRMR_x4ECJIGasRMR .brz-css-d-sectionitem-bg,
+  .brz-section.brz-css-46hh1n .brz-css-d-sectionitem-bg {
+    padding: 16px !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   31. MENU PAGE — MOBILE RESPONSIVENESS
+   -------------------------------------------------------------------------- */
+
+/* Fix menu item cards stacking on mobile */
+@media (max-width: 767px) {
+  /* Force single column on small screens */
+  .brz-section .brz-row .brz-columns {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    padding: 0 8px !important;
+  }
+
+  /* Menu item image scaling */
+  .brz-picture {
+    width: 100% !important;
+    overflow: hidden;
+  }
+
+  .brz-picture img,
+  .brz-img {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: cover !important;
+    max-height: 260px !important;
+  }
+
+  /* Reduce section padding on menu page */
+  .brz-section .brz-css-d-sectionitem-bg {
+    padding: 32px 8px !important;
+  }
+
+  /* Menu section title sizing */
+  .brz-section .brz-rich-text h2 {
+    font-size: 1.75rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .brz-section .brz-rich-text h3 {
+    font-size: 1.35rem !important;
+  }
+
+  /* Menu price / description text */
+  .brz-section .brz-rich-text p {
+    font-size: 0.88rem !important;
+    line-height: 1.65 !important;
+  }
+
+  /* Fix overflow on row containers */
+  .brz-row__container,
+  .brz-row {
+    overflow-x: hidden !important;
+    flex-wrap: wrap !important;
+  }
+
+  /* Fix cloneable (button group) stacking */
+  .brz-wrapper-clone {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+}
+
+/* Tablet — 2-column grid for menu items */
+@media (max-width: 991px) and (min-width: 640px) {
+  .brz-section .brz-row .brz-columns {
+    flex: 0 0 50% !important;
+    max-width: 50% !important;
+  }
+}
+
+@media (max-width: 425px) {
+  .brz-picture img,
+  .brz-img {
+    max-height: 200px !important;
+  }
+
+  /* Stack all columns fully */
+  .brz-section .brz-row .brz-columns {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   32. SECTION GENERAL IMPROVEMENTS
+   -------------------------------------------------------------------------- */
+
+/* Section heading block — red side accent */
+.brz .brz-section .brz-rich-text h2,
+.brz .brz-section .brz-rich-text h3 {
+  position: relative;
+}
+
+/* Remove the ::after underline we added before for specific headings and
+   replace with a classless approach for all h2s in non-dark sections */
+.brz .brz-section .brz-rich-text h2:not([style*="color: rgb(255"]):not([style*="color: rgba(255"]) {
+  padding-bottom: 0.65rem;
+}
+
+.brz .brz-section .brz-rich-text h2:not([style*="color: rgb(255"]):not([style*="color: rgba(255"])::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: var(--lux-red);
+}
+
+/* Section spacing refinement */
+.brz .brz-css-d-sectionitem-bg {
+  padding: 80px 0 !important;
+}
+
+@media (max-width: 991px) {
+  .brz .brz-css-d-sectionitem-bg {
+    padding: 56px 16px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .brz .brz-css-d-sectionitem-bg {
+    padding: 40px 12px !important;
+  }
+}
+
+/* "Order Now" text in hero area — make it a proper heading */
+.brz .brz-rich-text p.brz-fw-lg-700[class*="brz-fs-lg-22"]:has(+ *),
+.brz .brz-rich-text p.brz-fw-lg-700 {
+  font-family: var(--font-body) !important;
+  font-size: 0.7rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  color: var(--lux-white) !important;
+}
+
+/* Contact section dark background */
+#contact .brz-css-d-sectionitem-bg {
+  background-color: var(--lux-dark-gray) !important;
+}
+
+#contact .brz-bg-color {
+  background-color: var(--lux-dark-gray) !important;
+}
+
+#contact .brz-rich-text p,
+#contact .brz-rich-text span,
+#contact .brz-rich-text h2,
+#contact .brz-rich-text h3 {
+  color: var(--lux-white) !important;
+}
+
+/* Smooth reveal on all section wrappers */
+.brz .brz-section {
+  transition: opacity 0.3s ease;
+}
+
+/* --------------------------------------------------------------------------
+   33. NAV — DEEPER REFINEMENTS
+   -------------------------------------------------------------------------- */
+
+/* Force the whole first section (nav bar) to be dark */
+.brz-section:first-of-type .brz-css-d-sectionitem-bg {
+  padding: 0 !important;
+  background-color: var(--lux-black) !important;
+}
+
+.brz-section:first-of-type .brz-bg-color {
+  background-color: var(--lux-black) !important;
+}
+
+/* Logo area column */
+.brz-section:first-of-type .brz-column:first-child .brz-column__items {
+  padding: 12px 16px !important;
+}
+
+/* Nav section min-height on mobile */
+@media (max-width: 767px) {
+  .brz-section:first-of-type .brz-css-d-sectionitem-bg {
+    min-height: 64px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   34. HERO SECTION — ORDER NOW BUTTON AREA
+   -------------------------------------------------------------------------- */
+
+/* The "Order Now" section context — make it stand out as a floating CTA pill */
+.brz .brz-rich-text p.brz-fw-lg-700.brz-fs-lg-22 {
+  display: inline-block !important;
+  padding: 0 !important;
+  color: var(--lux-white) !important;
+}
+
