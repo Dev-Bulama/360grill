@@ -297,26 +297,26 @@ nav.brz-mm-menu.brz-css-d-menu-mmenu {
    7. HERO SECTIONS — GRADIENT DEPTH
    -------------------------------------------------------------------------- */
 
-/* Dark gradient overlay on all background-image sections */
+/* Dark gradient overlay — only on sections where Brizy has set a real
+   background image (background-image is not none). We target .brz-bg-image
+   that actually has a background-image style. Since we can't use :has()
+   on older browsers, we apply to all but reset colour to transparent for
+   empty ones so the visual effect only kicks in when an image is present. */
+.brz .brz-section > .brz-bg > .brz-bg-image {
+  position: relative;
+}
 .brz .brz-section > .brz-bg > .brz-bg-image:after {
   content: '' !important;
-  background-image: linear-gradient(
-    135deg,
-    rgba(0,0,0,0.82) 0%,
-    rgba(0,0,0,0.55) 50%,
-    rgba(10,0,0,0.35) 100%
-  ) !important;
-}
-
-/* First section (hero) — stronger overlay */
-.brz .brz-section:nth-child(2) > .brz-bg > .brz-bg-image:after,
-.brz .brz-section:first-of-type > .brz-bg > .brz-bg-image:after {
+  position: absolute !important;
+  inset: 0 !important;
+  pointer-events: none !important;
   background-image: linear-gradient(
     160deg,
-    rgba(0,0,0,0.88) 0%,
-    rgba(139,0,0,0.25) 60%,
-    rgba(0,0,0,0.7) 100%
+    rgba(0,0,0,0.72) 0%,
+    rgba(0,0,0,0.40) 50%,
+    rgba(10,0,0,0.20) 100%
   ) !important;
+  z-index: 1 !important;
 }
 
 /* Hero text color — force white on dark backgrounds */
@@ -435,10 +435,9 @@ nav.brz-mm-menu.brz-css-d-menu-mmenu {
    10. SECTION BACKGROUNDS — ALTERNATING LUXURY PALETTE
    -------------------------------------------------------------------------- */
 
-/* Light sections */
-.brz .brz-css-d-sectionitem-bg > .brz-bg > .brz-bg-color {
-  background-color: var(--lux-off-white) !important;
-}
+/* Light sections — do NOT override bg-color globally; hero image
+   depends on brz-bg-color staying transparent. Only darken explicitly
+   dark Brizy-configured sections via the rules below. */
 
 /* Dark sections (ones Brizy sets to dark) */
 .brz .brz-section > .brz-bg > .brz-bg-color[style*="rgba(26"],
@@ -715,20 +714,7 @@ nav.brz-mm-menu.brz-css-d-menu-mmenu {
    20. POPUP / MODAL — LUXURY DARK OVERLAY
    -------------------------------------------------------------------------- */
 
-.brz .brz-popup2,
-.brz .brz-popup2__overlay {
-  background-color: rgba(0,0,0,0.88) !important;
-  backdrop-filter: blur(4px) !important;
-}
-
-.brz .brz-popup2__close {
-  color: var(--lux-red) !important;
-  transition: transform var(--t-fast), color var(--t-fast) !important;
-}
-
-.brz .brz-popup2__close:hover {
-  transform: rotate(90deg) !important;
-}
+/* Popup overlay — handled in section 29 with more specific selectors */
 
 /* --------------------------------------------------------------------------
    21. SLICK SLIDER — LUXURY CONTROLS
@@ -830,52 +816,64 @@ nav.brz-mm-menu.brz-css-d-menu-mmenu {
    27. MEGA MENU DROPDOWN — LUXURY REDESIGN
    -------------------------------------------------------------------------- */
 
-/* Mega menu portal wrapper */
+/* Mega menu portal wrapper — must sit above the hero section (Brizy
+   hero sections can have z-index up to ~100). Use a very high value. */
 .brz .brz-mega-menu__portal,
 .brz .brz-mega-menu__mmenu {
-  z-index: 9999 !important;
+  z-index: 999999 !important;
+  position: relative !important;
 }
 
-/* The mega menu panel itself */
+/* Ensure nav section creates a stacking context above hero */
+.brz-mm-navbar-sticky,
+.brz-section:first-of-type {
+  z-index: 10000 !important;
+  position: relative !important;
+}
+
+/* The mega menu panel itself — compact bar, not a huge panel */
 .brz .brz-mega-menu,
 .brz-mega-menu {
-  background-color: var(--lux-black) !important;
+  background-color: rgba(10,10,10,0.98) !important;
   border-top: 2px solid var(--lux-red) !important;
-  border-bottom: 1px solid rgba(196,30,42,0.25) !important;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 4px 16px rgba(0,0,0,0.4) !important;
-  animation: lux-dropdown-in 0.22s cubic-bezier(0.16,1,0.3,1) both !important;
+  border-bottom: 1px solid rgba(196,30,42,0.2) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.55) !important;
+  animation: lux-dropdown-in 0.18s cubic-bezier(0.16,1,0.3,1) both !important;
+  z-index: 999999 !important;
 }
 
 @keyframes lux-dropdown-in {
-  from { opacity: 0; transform: translateY(-10px); }
+  from { opacity: 0; transform: translateY(-6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Inner container padding */
+/* Compact inner container */
 .brz .brz-css-d-sectionmegamenu-bg,
 .brz .brz-mega-menu .brz-container {
-  padding: 28px 32px !important;
+  padding: 14px 24px !important;
   display: flex !important;
+  flex-direction: row !important;
   align-items: center !important;
-  gap: 16px !important;
+  justify-content: flex-start !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
 }
 
-/* Buttons inside mega menus — premium pill style */
+/* Buttons inside mega menus — slim, clean */
 .brz .brz-mega-menu .brz-btn,
 .brz-mega-menu .brz-btn {
   font-family: var(--font-body) !important;
-  font-size: 0.72rem !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.16em !important;
+  font-size: 0.7rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.12em !important;
   text-transform: uppercase !important;
   background-color: transparent !important;
-  color: var(--lux-white) !important;
-  border: 1px solid rgba(255,255,255,0.25) !important;
+  color: rgba(255,255,255,0.85) !important;
+  border: 1px solid rgba(255,255,255,0.2) !important;
   border-radius: 2px !important;
-  padding: 12px 28px !important;
+  padding: 9px 20px !important;
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease !important;
   white-space: nowrap;
-  position: relative;
 }
 
 .brz .brz-mega-menu .brz-btn:hover,
@@ -883,33 +881,18 @@ nav.brz-mm-menu.brz-css-d-menu-mmenu {
   background-color: var(--lux-red) !important;
   border-color: var(--lux-red) !important;
   color: var(--lux-white) !important;
-  box-shadow: 0 4px 16px rgba(196,30,42,0.35) !important;
 }
 
-/* "Book A Table" — highlight it as primary CTA */
-.brz-mega-menu .brz-btn:first-child,
+/* First button ("Book A Table") — primary red CTA */
 .brz-mega-menu .brz-wrapper-clone:first-child .brz-btn {
   background-color: var(--lux-red) !important;
   border-color: var(--lux-red) !important;
   color: var(--lux-white) !important;
 }
 
-.brz-mega-menu .brz-btn:first-child:hover,
 .brz-mega-menu .brz-wrapper-clone:first-child .brz-btn:hover {
   background-color: var(--lux-red-dark) !important;
   border-color: var(--lux-red-dark) !important;
-}
-
-/* Decorative divider inside mega menu */
-.brz-mega-menu .brz-css-d-row-row::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1px;
-  height: 60%;
-  background: rgba(255,255,255,0.1);
 }
 
 /* Sub-menu dropdown (regular, non-mega) */
@@ -1053,68 +1036,90 @@ a.floating-button:hover::before {
    29. NEWSLETTER POPUP — LUXURY DARK REDESIGN
    -------------------------------------------------------------------------- */
 
-/* Popup overlay */
+/* Popup overlay — dark dimmed backdrop */
 .brz .brz-popup2.brz-popup2__auto,
-.brz .brz-popup2.brz-popup2__auto .brz-popup2__overlay {
-  background: rgba(0,0,0,0.85) !important;
-  backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
+.brz .brz-popup2__overlay {
+  background: rgba(0,0,0,0.78) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
-/* Popup container */
+/* Popup inner — centered, max-width card, NOT full screen */
 .brz .brz-popup2__inner.brz-css-d-sectionpopup2-bg {
+  width: auto !important;
+  max-width: 420px !important;
+  min-height: 0 !important;
+  margin: auto !important;
+  padding: 0 !important;
   border-radius: 0 !important;
-  animation: lux-popup-in 0.4s cubic-bezier(0.16,1,0.3,1) both !important;
+  animation: lux-popup-in 0.35s cubic-bezier(0.16,1,0.3,1) both !important;
+  overflow: visible !important;
+  position: relative !important;
+}
+
+.brz .brz-popup2__inner .brz-container__wrap {
+  width: auto !important;
+  max-width: 420px !important;
+  position: relative !important;
   overflow: visible !important;
 }
 
 @keyframes lux-popup-in {
-  from { opacity: 0; transform: scale(0.94) translateY(16px); }
-  to   { opacity: 1; transform: scale(1) translateY(0); }
+  from { opacity: 0; transform: scale(0.92) translateY(20px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0); }
 }
 
-/* Close button */
-.brz .brz-popup2__close {
-  top: -48px !important;
-  right: 0 !important;
-  background: var(--lux-red) !important;
-  width: 36px !important;
-  height: 36px !important;
-  display: flex !important;
+/* Close button — always visible, top-right corner INSIDE the card */
+.brz .brz-popup2__close,
+.brz .brz-popup2__close.brz-hidden {
+  display: flex !important;       /* override brz-hidden */
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: absolute !important;
+  top: 10px !important;
+  right: 10px !important;
+  left: auto !important;
+  bottom: auto !important;
+  width: 32px !important;
+  height: 32px !important;
+  background: rgba(196,30,42,0.9) !important;
+  color: var(--lux-white) !important;
   align-items: center !important;
   justify-content: center !important;
   border-radius: 50% !important;
-  transition: background-color 0.2s ease, transform 0.25s ease !important;
+  cursor: pointer !important;
+  z-index: 10 !important;
+  transition: background-color 0.2s ease, transform 0.2s ease !important;
 }
 
 .brz .brz-popup2__close:hover {
   background: var(--lux-red-dark) !important;
-  transform: rotate(90deg) scale(1.1) !important;
+  transform: rotate(90deg) !important;
 }
 
-/* Newsletter form inside popup — override inline styles */
+.brz .brz-popup2__close .brz-icon-svg {
+  font-size: 14px !important;
+  width: 14px !important;
+  height: 14px !important;
+}
+
+/* Newsletter form inside popup — compact dark card */
 .newsletter-container {
   max-width: 420px !important;
-  margin: 0 auto !important;
-  padding: 40px 36px !important;
+  margin: 0 !important;
+  padding: 32px 28px 24px !important;
   background: var(--lux-charcoal) !important;
   border-radius: 0 !important;
-  border: 1px solid rgba(196,30,42,0.3) !important;
   border-top: 3px solid var(--lux-red) !important;
-  box-shadow: 0 32px 80px rgba(0,0,0,0.7) !important;
+  border-left: 1px solid rgba(196,30,42,0.2) !important;
+  border-right: 1px solid rgba(196,30,42,0.2) !important;
+  border-bottom: 1px solid rgba(196,30,42,0.2) !important;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.65) !important;
   font-family: var(--font-body) !important;
   position: relative;
-}
-
-/* Red corner accent */
-.newsletter-container::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 60px;
-  height: 3px;
-  background: var(--lux-red);
 }
 
 .newsletter-title {
