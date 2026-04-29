@@ -1,0 +1,822 @@
+/* ==========================================================================
+   360 GRILL — Luxury Brand Override
+   Premium black + red redesign layered over Brizy builder
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. GOOGLE FONTS + CSS VARIABLES
+   -------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Montserrat:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap');
+
+:root {
+  /* Brand palette */
+  --lux-red:          #C41E2A;
+  --lux-red-dark:     #8B0000;
+  --lux-red-light:    #E8364A;
+  --lux-black:        #0A0A0A;
+  --lux-charcoal:     #1A1A1A;
+  --lux-dark-gray:    #2A2A2A;
+  --lux-mid-gray:     #555555;
+  --lux-light-gray:   #F5F3F0;
+  --lux-off-white:    #FAF9F7;
+  --lux-white:        #FFFFFF;
+  --lux-gold:         #C9A96E;
+
+  /* Typography */
+  --font-display:     'Playfair Display', 'Georgia', serif;
+  --font-body:        'Montserrat', 'Helvetica Neue', sans-serif;
+  --font-accent:      'Cormorant Garamond', 'Georgia', serif;
+
+  /* Spacing scale */
+  --space-xs:  0.5rem;
+  --space-sm:  1rem;
+  --space-md:  1.5rem;
+  --space-lg:  2.5rem;
+  --space-xl:  4rem;
+  --space-2xl: 6rem;
+
+  /* Transitions */
+  --ease-luxury: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-sharp:  cubic-bezier(0.16, 1, 0.3, 1);
+  --t-fast:   0.2s var(--ease-luxury);
+  --t-med:    0.4s var(--ease-luxury);
+  --t-slow:   0.6s var(--ease-luxury);
+
+  /* Shadows */
+  --shadow-card:  0 4px 24px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.08);
+  --shadow-hover: 0 16px 48px rgba(0,0,0,0.22), 0 4px 12px rgba(0,0,0,0.12);
+  --shadow-nav:   0 2px 20px rgba(0,0,0,0.35);
+
+  /* Override Brizy global color system — RGB tuples for rgba() composition */
+  --brz-global-color1: 10,10,10;         /* lux-black */
+  --brz-global-color2: 26,26,26;         /* lux-charcoal */
+  --brz-global-color3: 196,30,42;        /* lux-red (primary CTA) */
+  --brz-global-color4: 42,42,42;         /* lux-dark-gray */
+  --brz-global-color5: 250,249,247;      /* lux-off-white */
+  --brz-global-color6: 85,85,85;         /* lux-mid-gray */
+  --brz-global-color7: 201,169,110;      /* lux-gold */
+  --brz-global-color8: 255,255,255;      /* white (button text) */
+}
+
+/* --------------------------------------------------------------------------
+   2. GLOBAL BASE RESET
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body,
+.brz body {
+  font-family: var(--font-body) !important;
+  background-color: var(--lux-off-white);
+  color: var(--lux-charcoal);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   3. TYPOGRAPHY OVERRIDE
+   -------------------------------------------------------------------------- */
+
+/* All headings → Playfair Display */
+.brz h1, .brz h2, .brz h3, .brz h4, .brz h5, .brz h6,
+.brz .brz-rich-text h1,
+.brz .brz-rich-text h2,
+.brz .brz-rich-text h3,
+.brz .brz-rich-text h4,
+.brz .brz-rich-text h5,
+.brz .brz-rich-text h6 {
+  font-family: var(--font-display) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em;
+  line-height: 1.2 !important;
+}
+
+/* Paragraphs → Montserrat */
+.brz p,
+.brz .brz-rich-text p,
+.brz .brz-rich-text span,
+.brz .brz-rich-text li {
+  font-family: var(--font-body) !important;
+  font-weight: 300;
+}
+
+/* Overpass and Jost overrides throughout */
+.brz [style*="Overpass"],
+.brz [style*="Jost"],
+.brz [style*="Lato"] {
+  font-family: var(--font-body) !important;
+}
+
+/* Sacramento → Cormorant Garamond (similar elegance) */
+.brz [style*="Sacramento"] {
+  font-family: var(--font-accent) !important;
+  font-style: italic !important;
+}
+
+/* Text size hierarchy */
+.brz .brz-rich-text h1 { font-size: clamp(2.5rem, 5vw, 5rem) !important; }
+.brz .brz-rich-text h2 { font-size: clamp(2rem, 3.5vw, 3.5rem) !important; }
+.brz .brz-rich-text h3 { font-size: clamp(1.5rem, 2.5vw, 2.25rem) !important; }
+.brz .brz-rich-text h4 { font-size: clamp(1.2rem, 2vw, 1.75rem) !important; }
+
+/* --------------------------------------------------------------------------
+   4. SECTION HEADING ACCENT LINES
+   -------------------------------------------------------------------------- */
+
+/* Red underline accent on h2 headings in section areas */
+.brz .brz-section .brz-rich-text h2::after,
+.brz .brz-section .brz-rich-text h3::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: var(--lux-red);
+  margin-top: 0.75rem;
+}
+
+/* Centered variant */
+.brz .brz-section .brz-rich-text [style*="center"] h2::after,
+.brz .brz-section .brz-rich-text [style*="center"] h3::after,
+.brz .brz-section [style*="text-align: center"] h2::after {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* --------------------------------------------------------------------------
+   5. NAVBAR — LUXURY BLACK
+   -------------------------------------------------------------------------- */
+
+/* Wrapper around the whole nav section */
+.brz .brz-mm-navbar-sticky,
+.brz [class*="brz-section"]:first-of-type > .brz-bg {
+  transition: background-color var(--t-slow), box-shadow var(--t-slow) !important;
+}
+
+/* Desktop nav bar section background → deep black */
+.brz .brz-mm-navbar-sticky .brz-bg-color,
+.brz .brz-section:first-child .brz-bg-color {
+  background-color: var(--lux-black) !important;
+}
+
+/* Nav section — force dark background on the wrapping section */
+.brz .brz-section .brz-container .brz-css-d-menu-menu-container,
+.brz .brz-css-d-menu-menu-container {
+  background: transparent !important;
+}
+
+/* Desktop nav links — white with hover red */
+.brz .brz-css-d-menu-menu > .brz-menu__ul,
+.brz .brz-css-d-menu-menu > .brz-menu__ul > .brz-menu__item {
+  color: var(--lux-white) !important;
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.brz .brz-css-d-menu-menu > .brz-menu__ul > .brz-menu__item > .brz-a {
+  font-family: var(--font-body) !important;
+  font-weight: 500 !important;
+  font-size: 0.8rem !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  color: var(--lux-white) !important;
+  background-color: transparent !important;
+  padding: 0.5rem 0.75rem !important;
+  transition: color var(--t-fast) !important;
+  position: relative;
+}
+
+/* Hover underline slide-in effect */
+.brz .brz-css-d-menu-menu > .brz-menu__ul > .brz-menu__item > .brz-a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 100%;
+  height: 2px;
+  background: var(--lux-red);
+  transition: transform var(--t-fast) !important;
+  transform-origin: center;
+}
+
+@media (min-width: 991px) {
+  .brz .brz-css-d-menu-menu > .brz-menu__ul > .brz-menu__item > .brz-a:hover {
+    color: var(--lux-red) !important;
+    background-color: transparent !important;
+  }
+  .brz .brz-css-d-menu-menu > .brz-menu__ul > .brz-menu__item > .brz-a:hover::after {
+    transform: translateX(-50%) scaleX(1);
+  }
+}
+
+/* Active/current nav item */
+.brz .brz-css-d-menu-menu > .brz-menu__ul > .brz-menu__item.brz-menu__item--current > .brz-a:not(.brz-a:active) {
+  color: var(--lux-red) !important;
+}
+
+/* Dropdown sub-menu */
+.brz .brz-css-d-menu-menu > .brz-menu__ul > .brz-menu__item-dropdown .brz-menu__sub-menu {
+  background-color: var(--lux-black) !important;
+  border-top: 2px solid var(--lux-red) !important;
+  border-radius: 0 0 4px 4px !important;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4) !important;
+}
+
+.brz .brz-css-d-menu-menu > .brz-menu__ul > .brz-menu__item-dropdown .brz-menu__sub-menu .brz-menu__item {
+  background-color: var(--lux-black) !important;
+  color: rgba(255,255,255,0.85) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+}
+
+.brz .brz-css-d-menu-menu > .brz-menu__ul > .brz-menu__item-dropdown .brz-menu__sub-menu .brz-a:hover {
+  color: var(--lux-red) !important;
+  background-color: rgba(196,30,42,0.08) !important;
+}
+
+/* --------------------------------------------------------------------------
+   6. MOBILE MENU — LUXURY DARK DRAWER
+   -------------------------------------------------------------------------- */
+
+.brz .brz-css-d-menu-mmenu.brz-mm-menu,
+nav.brz-mm-menu.brz-css-d-menu-mmenu {
+  background-color: var(--lux-black) !important;
+  border-right: 1px solid rgba(196,30,42,0.3) !important;
+}
+
+.brz .brz-css-d-menu-mmenu .brz-mm-navbar {
+  background-color: var(--lux-charcoal) !important;
+  color: var(--lux-white) !important;
+  border-bottom: 1px solid rgba(196,30,42,0.4) !important;
+}
+
+.brz .brz-css-d-menu-mmenu .brz-mm-navbar .brz-mm-close {
+  background-color: var(--lux-red) !important;
+  color: var(--lux-white) !important;
+  border-radius: 0 !important;
+}
+
+.brz .brz-css-d-menu-mmenu .brz-menu__item {
+  color: rgba(255,255,255,0.9) !important;
+  border-color: rgba(255,255,255,0.1) !important;
+  font-family: var(--font-body) !important;
+  font-size: 0.85rem !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+}
+
+.brz .brz-css-d-menu-mmenu .brz-mm-listitem,
+.brz .brz-css-d-menu-mmenu .brz-mm-panels > .brz-mm-panel,
+.brz .brz-css-d-menu-mmenu.brz-mm-menu.brz-mm-menu_theme-dark .brz-mm-panels {
+  background-color: var(--lux-black) !important;
+}
+
+.brz .brz-css-d-menu-mmenu .brz-menu__item:hover > .brz-mm-listitem__text {
+  color: var(--lux-red) !important;
+  background-color: rgba(196,30,42,0.08) !important;
+}
+
+/* Hamburger icon color — ensure visible on dark nav */
+.brz .brz-css-d-menu-menu-container .brz-mm-menu__icon,
+.brz .brz-mm-menu__icon,
+.brz .brz-mm-menu__icon .brz-icon-svg-custom {
+  color: var(--lux-white) !important;
+  background-color: var(--lux-white) !important;
+}
+
+/* --------------------------------------------------------------------------
+   7. HERO SECTIONS — GRADIENT DEPTH
+   -------------------------------------------------------------------------- */
+
+/* Dark gradient overlay on all background-image sections */
+.brz .brz-section > .brz-bg > .brz-bg-image:after {
+  content: '' !important;
+  background-image: linear-gradient(
+    135deg,
+    rgba(0,0,0,0.82) 0%,
+    rgba(0,0,0,0.55) 50%,
+    rgba(10,0,0,0.35) 100%
+  ) !important;
+}
+
+/* First section (hero) — stronger overlay */
+.brz .brz-section:nth-child(2) > .brz-bg > .brz-bg-image:after,
+.brz .brz-section:first-of-type > .brz-bg > .brz-bg-image:after {
+  background-image: linear-gradient(
+    160deg,
+    rgba(0,0,0,0.88) 0%,
+    rgba(139,0,0,0.25) 60%,
+    rgba(0,0,0,0.7) 100%
+  ) !important;
+}
+
+/* Hero text color — force white on dark backgrounds */
+.brz .brz-section > .brz-bg > .brz-bg-image ~ .brz-section__content .brz-rich-text p,
+.brz .brz-section > .brz-bg > .brz-bg-image ~ .brz-section__content .brz-rich-text span,
+.brz .brz-section > .brz-bg > .brz-bg-image ~ .brz-section__content .brz-rich-text h1,
+.brz .brz-section > .brz-bg > .brz-bg-image ~ .brz-section__content .brz-rich-text h2,
+.brz .brz-section > .brz-bg > .brz-bg-image ~ .brz-section__content .brz-rich-text h3 {
+  color: var(--lux-white) !important;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+}
+
+/* --------------------------------------------------------------------------
+   8. BUTTONS — LUXURY CTA STYLE
+   -------------------------------------------------------------------------- */
+
+/* Primary button — red with clean hover */
+.brz .brz-btn,
+.brz .brz-css-d-button-bg.brz-btn {
+  font-family: var(--font-body) !important;
+  font-weight: 600 !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  background-color: var(--lux-red) !important;
+  color: var(--lux-white) !important;
+  border: 2px solid var(--lux-red) !important;
+  border-radius: 0 !important;
+  padding: 16px 48px !important;
+  transition: background-color var(--t-fast), color var(--t-fast), border-color var(--t-fast), box-shadow var(--t-fast) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover — dark fill with red border */
+@media (min-width: 991px) {
+  .brz .brz-btn:hover,
+  .brz .brz-css-d-button-bg.brz-btn:not(.brz-btn--hover):hover,
+  .brz .brz-css-d-button-bg.brz-btn.brz-btn-submit:hover {
+    background-color: var(--lux-black) !important;
+    color: var(--lux-white) !important;
+    border-color: var(--lux-red) !important;
+    box-shadow: 0 0 0 2px var(--lux-red), 0 8px 24px rgba(196,30,42,0.3) !important;
+  }
+}
+
+/* Outline variant — if any buttons are outlined */
+.brz .brz-btn[style*="background-color: rgba(0,0,0,0)"],
+.brz .brz-btn[style*="background: transparent"] {
+  background-color: transparent !important;
+  color: var(--lux-white) !important;
+  border: 2px solid var(--lux-white) !important;
+}
+
+@media (min-width: 991px) {
+  .brz .brz-btn[style*="background-color: rgba(0,0,0,0)"]:hover,
+  .brz .brz-btn[style*="background: transparent"]:hover {
+    background-color: var(--lux-white) !important;
+    color: var(--lux-black) !important;
+  }
+}
+
+/* Submit button */
+.brz .brz-css-d-button-bg.brz-btn.brz-btn-submit {
+  background-color: var(--lux-red) !important;
+  color: var(--lux-white) !important;
+}
+
+/* --------------------------------------------------------------------------
+   9. CARDS & GALLERY — HOVER LIFT
+   -------------------------------------------------------------------------- */
+
+/* Card / wrapper containers */
+.brz .brz-image--withHover,
+.brz [class*="brz-css"][class*="-parent"],
+.brz .brz-wrapper {
+  transition: transform var(--t-med), box-shadow var(--t-med) !important;
+}
+
+@media (min-width: 768px) {
+  .brz .brz-image--withHover:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-hover) !important;
+  }
+
+  /* General card column hover */
+  .brz .brz-column:hover > .brz-column__items,
+  .brz .brz-wrapper:hover {
+    transform: translateY(-4px);
+  }
+}
+
+/* Image border radius — subtle */
+.brz .brz-picture img,
+.brz .brz-img {
+  border-radius: 2px;
+}
+
+/* Gallery grid hover */
+.brz .brz-image--withHover .brz-picture::after {
+  transition: background-color var(--t-med) !important;
+}
+
+@media (min-width: 768px) {
+  .brz .brz-image--withHover:hover .brz-picture::after {
+    background-color: rgba(196,30,42,0.12) !important;
+  }
+}
+
+/* Section bg container — soft shadow */
+.brz [class*="brz-css"][class*="-c"] > .brz-bg {
+  transition: box-shadow var(--t-med) !important;
+}
+
+/* --------------------------------------------------------------------------
+   10. SECTION BACKGROUNDS — ALTERNATING LUXURY PALETTE
+   -------------------------------------------------------------------------- */
+
+/* Light sections */
+.brz .brz-css-d-sectionitem-bg > .brz-bg > .brz-bg-color {
+  background-color: var(--lux-off-white) !important;
+}
+
+/* Dark sections (ones Brizy sets to dark) */
+.brz .brz-section > .brz-bg > .brz-bg-color[style*="rgba(26"],
+.brz .brz-section > .brz-bg > .brz-bg-color[style*="rgba(51"],
+.brz .brz-section > .brz-bg > .brz-bg-color[style*="rgba(0,0,0,.9"],
+.brz .brz-section > .brz-bg > .brz-bg-color[style*="rgba(0,0,0,0.9"] {
+  background-color: var(--lux-charcoal) !important;
+}
+
+/* --------------------------------------------------------------------------
+   11. FORM INPUTS — PREMIUM STYLING
+   -------------------------------------------------------------------------- */
+
+.brz .brz-forms2__field:not(.brz-forms2__radio):not(.brz-forms2__checkbox) {
+  border: 1px solid rgba(0,0,0,0.15) !important;
+  border-radius: 2px !important;
+  background-color: var(--lux-white) !important;
+  color: var(--lux-charcoal) !important;
+  font-family: var(--font-body) !important;
+  font-size: 0.9rem !important;
+  padding: 14px 20px !important;
+  transition: border-color var(--t-fast), box-shadow var(--t-fast) !important;
+}
+
+.brz .brz-forms2__field:not(.brz-forms2__radio):not(.brz-forms2__checkbox):focus {
+  border-color: var(--lux-red) !important;
+  box-shadow: 0 0 0 3px rgba(196,30,42,0.12) !important;
+  outline: none !important;
+}
+
+.brz .brz-forms2__field-label {
+  font-family: var(--font-body) !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color: var(--lux-mid-gray) !important;
+}
+
+/* --------------------------------------------------------------------------
+   12. FOOTER — DARK LUXURY TREATMENT
+   -------------------------------------------------------------------------- */
+
+/* Last section(s) — assume footer area */
+.brz .brz-section:last-child > .brz-bg > .brz-bg-color,
+.brz .brz-section:nth-last-child(2) > .brz-bg > .brz-bg-color,
+.brz .brz-section:nth-last-child(3) > .brz-bg > .brz-bg-color {
+  background-color: var(--lux-black) !important;
+}
+
+/* Footer text colors */
+.brz .brz-section:last-child .brz-rich-text p,
+.brz .brz-section:last-child .brz-rich-text span,
+.brz .brz-section:last-child .brz-rich-text a,
+.brz .brz-section:nth-last-child(2) .brz-rich-text p,
+.brz .brz-section:nth-last-child(2) .brz-rich-text span,
+.brz .brz-section:nth-last-child(3) .brz-rich-text p {
+  color: rgba(255,255,255,0.75) !important;
+}
+
+.brz .brz-section:last-child .brz-rich-text h1,
+.brz .brz-section:last-child .brz-rich-text h2,
+.brz .brz-section:last-child .brz-rich-text h3,
+.brz .brz-section:last-child .brz-rich-text h4,
+.brz .brz-section:nth-last-child(2) .brz-rich-text h3,
+.brz .brz-section:nth-last-child(2) .brz-rich-text h4 {
+  color: var(--lux-white) !important;
+}
+
+/* Footer links */
+.brz .brz-section:last-child .brz-rich-text a,
+.brz .brz-section:nth-last-child(2) .brz-rich-text a {
+  color: rgba(255,255,255,0.65) !important;
+  text-decoration: none !important;
+  transition: color var(--t-fast) !important;
+}
+
+.brz .brz-section:last-child .brz-rich-text a:hover,
+.brz .brz-section:nth-last-child(2) .brz-rich-text a:hover {
+  color: var(--lux-red) !important;
+}
+
+/* Footer red accent line above */
+.brz .brz-section:last-child > .brz-bg {
+  border-top: 3px solid var(--lux-red) !important;
+}
+
+/* Footer divider lines */
+.brz .brz-section:last-child .brz-hr,
+.brz .brz-section:nth-last-child(2) .brz-hr {
+  border-color: rgba(255,255,255,0.12) !important;
+}
+
+/* Footer social icons */
+.brz .brz-section:last-child .brz-icon-svg,
+.brz .brz-section:nth-last-child(2) .brz-icon-svg {
+  color: rgba(255,255,255,0.6) !important;
+  transition: color var(--t-fast) !important;
+}
+
+.brz .brz-section:last-child .brz-icon-svg:hover,
+.brz .brz-section:nth-last-child(2) .brz-icon-svg:hover {
+  color: var(--lux-red) !important;
+}
+
+/* --------------------------------------------------------------------------
+   13. DIVIDERS & HORIZONTAL RULES
+   -------------------------------------------------------------------------- */
+
+.brz-css-d-line .brz-hr,
+.brz-css-d-line .brz-line-container::before,
+.brz-css-d-line .brz-line-container::after {
+  border-top-color: var(--lux-gold) !important;
+  border-top-width: 1px !important;
+  opacity: 0.5;
+}
+
+/* --------------------------------------------------------------------------
+   14. ICONS — RED ACCENT
+   -------------------------------------------------------------------------- */
+
+.brz .brz-icon-svg {
+  transition: color var(--t-fast), transform var(--t-fast) !important;
+}
+
+.brz .brz-css-d-icon-icon {
+  color: var(--lux-red) !important;
+}
+
+.brz .brz-css-d-icon-icon .brz-icon-svg-custom {
+  background-color: var(--lux-red) !important;
+}
+
+@media (min-width: 991px) {
+  .brz .brz-css-d-icon-icon:hover {
+    color: var(--lux-red-dark) !important;
+    transform: scale(1.1) !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   15. SECTION PADDING — BALANCED RHYTHM
+   -------------------------------------------------------------------------- */
+
+.brz .brz-css-d-sectionitem-bg {
+  padding: 90px 0 !important;
+}
+
+@media (max-width: 991px) and (min-width: 768px) {
+  .brz .brz-css-d-sectionitem-bg {
+    padding: 64px 20px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .brz .brz-css-d-sectionitem-bg {
+    padding: 48px 16px !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   16. SCROLL ENTRANCE ANIMATIONS (JS-toggled)
+   -------------------------------------------------------------------------- */
+
+.lux-fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s var(--ease-sharp), transform 0.7s var(--ease-sharp);
+}
+
+.lux-fade-up.lux-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.lux-fade-in {
+  opacity: 0;
+  transition: opacity 0.8s var(--ease-luxury);
+}
+
+.lux-fade-in.lux-visible {
+  opacity: 1;
+}
+
+/* Stagger delays for sibling elements */
+.lux-fade-up:nth-child(2) { transition-delay: 0.1s; }
+.lux-fade-up:nth-child(3) { transition-delay: 0.2s; }
+.lux-fade-up:nth-child(4) { transition-delay: 0.3s; }
+.lux-fade-up:nth-child(5) { transition-delay: 0.4s; }
+
+/* --------------------------------------------------------------------------
+   17. NAVBAR SCROLL EFFECT (JS-toggled class)
+   -------------------------------------------------------------------------- */
+
+.brz-mm-navbar-sticky.lux-scrolled .brz-bg-color,
+.lux-navbar-section.lux-scrolled .brz-bg-color {
+  background-color: rgba(0,0,0,0.97) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  box-shadow: var(--shadow-nav) !important;
+}
+
+/* --------------------------------------------------------------------------
+   18. MEGA MENU SECTION
+   -------------------------------------------------------------------------- */
+
+.brz .brz-css-d-sectionmegamenu-section > .brz-bg > .brz-bg-color {
+  background-color: var(--lux-black) !important;
+  border-top: 1px solid rgba(196,30,42,0.35) !important;
+}
+
+.brz .brz-css-d-sectionmegamenu-section .brz-rich-text p,
+.brz .brz-css-d-sectionmegamenu-section .brz-rich-text a {
+  color: rgba(255,255,255,0.8) !important;
+}
+
+.brz .brz-css-d-sectionmegamenu-section .brz-rich-text a:hover {
+  color: var(--lux-red) !important;
+}
+
+/* --------------------------------------------------------------------------
+   19. RESPONSIVE FIXES
+   -------------------------------------------------------------------------- */
+
+/* Prevent horizontal overflow */
+.brz .brz-section,
+.brz .brz-container,
+.brz .brz-row {
+  max-width: 100% !important;
+  overflow-x: hidden;
+}
+
+/* Logo sizing */
+.brz .brz-css-d-image-dmo1yg8n_nf4-image,
+.brz .brz-css-d-image-n6_xeowyjivu-image,
+.brz .brz-css-d-image-ivjm13_zyg_d-image {
+  max-width: 100% !important;
+}
+
+/* Column stacking on mobile */
+@media (max-width: 767px) {
+  .brz .brz-row > .brz-row__container {
+    flex-direction: column !important;
+  }
+
+  .brz .brz-column {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+
+  .brz .brz-rich-text h1 { font-size: 2.25rem !important; }
+  .brz .brz-rich-text h2 { font-size: 1.875rem !important; }
+  .brz .brz-rich-text h3 { font-size: 1.5rem !important; }
+
+  .brz .brz-btn,
+  .brz .brz-css-d-button-bg.brz-btn {
+    padding: 14px 32px !important;
+    font-size: 0.7rem !important;
+    width: auto !important;
+    display: inline-flex !important;
+  }
+}
+
+@media (max-width: 425px) {
+  .brz .brz-rich-text h1 { font-size: 1.875rem !important; }
+  .brz .brz-rich-text h2 { font-size: 1.625rem !important; }
+
+  .brz .brz-css-d-sectionitem-bg {
+    padding: 40px 12px !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   20. POPUP / MODAL — LUXURY DARK OVERLAY
+   -------------------------------------------------------------------------- */
+
+.brz .brz-popup2,
+.brz .brz-popup2__overlay {
+  background-color: rgba(0,0,0,0.88) !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+.brz .brz-popup2__close {
+  color: var(--lux-red) !important;
+  transition: transform var(--t-fast), color var(--t-fast) !important;
+}
+
+.brz .brz-popup2__close:hover {
+  transform: rotate(90deg) !important;
+}
+
+/* --------------------------------------------------------------------------
+   21. SLICK SLIDER — LUXURY CONTROLS
+   -------------------------------------------------------------------------- */
+
+.brz .brz-slick-slider__arrow {
+  color: var(--lux-red) !important;
+  background-color: rgba(0,0,0,0.5) !important;
+  border: 1px solid rgba(196,30,42,0.4) !important;
+  transition: background-color var(--t-fast), color var(--t-fast) !important;
+}
+
+.brz .brz-slick-slider__arrow:hover {
+  background-color: var(--lux-red) !important;
+  color: var(--lux-white) !important;
+}
+
+.brz .brz-slick-slider__dots button {
+  background-color: rgba(196,30,42,0.4) !important;
+  transition: background-color var(--t-fast) !important;
+}
+
+.brz .brz-slick-slider__dots .slick-active button {
+  background-color: var(--lux-red) !important;
+}
+
+/* --------------------------------------------------------------------------
+   22. MAP SECTION
+   -------------------------------------------------------------------------- */
+
+.brz-css-d-map .brz-ui-ed-map-content {
+  border-radius: 4px !important;
+  box-shadow: var(--shadow-card) !important;
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   23. SELECTION HIGHLIGHT
+   -------------------------------------------------------------------------- */
+
+::selection {
+  background-color: var(--lux-red);
+  color: var(--lux-white);
+}
+
+/* --------------------------------------------------------------------------
+   24. SCROLLBAR (webkit)
+   -------------------------------------------------------------------------- */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--lux-charcoal);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--lux-red);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--lux-red-light);
+}
+
+/* --------------------------------------------------------------------------
+   25. ACCESSIBILITY & FOCUS
+   -------------------------------------------------------------------------- */
+
+.brz a:focus-visible,
+.brz button:focus-visible,
+.brz input:focus-visible,
+.brz textarea:focus-visible {
+  outline: 2px solid var(--lux-red) !important;
+  outline-offset: 3px !important;
+}
+
+/* --------------------------------------------------------------------------
+   26. PRINT — REMOVE DECORATIVE ELEMENTS
+   -------------------------------------------------------------------------- */
+
+@media print {
+  .brz .brz-section > .brz-bg > .brz-bg-image::after {
+    display: none !important;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}
